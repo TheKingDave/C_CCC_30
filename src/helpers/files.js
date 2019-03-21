@@ -7,6 +7,12 @@ export const getBase = () => {
     return path.basename(process.cwd());
 };
 
+export const rmFileIfExists = (filePath) => {
+    if(fileExists(filePath)) {
+        fs.unlinkSync(filePath);
+    }
+}
+
 export const fileExists = (filePath) => {
     return fs.existsSync(filePath)
 };
