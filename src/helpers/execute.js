@@ -59,7 +59,14 @@ Examples: npm run execute 1 eq
         const inputData = fs.readFileSync(path.join(inputFolder, file + ccc_config.inputFileExtension), 'utf8');
 
         const {execute} = await import(path.join(getCWD(), 'build', ccc_config.mainFile));
-        const output = execute(inputData);
+
+        try {
+            const output = await execute(inputData);
+        } catch (e) {
+            console.log(chalk.red(`Got error while executing file ${chalk.green(file)}:`));
+            console.log(e);
+            return;
+        }
 
         console.log("Executed for file: " + chalk.green(file));
 
