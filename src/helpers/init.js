@@ -1,14 +1,21 @@
 import fs from 'fs'
 import path from 'path'
-import {dirExists, getBase, mkDirIfNotExists} from './files'
+import {dirExists, fileExists, getBase, mkDirIfNotExists} from './files'
 import clear from 'clear'
 import chalk from 'chalk'
 import figlet from 'figlet'
 import inquirer from 'inquirer'
 
+const configFile = 'ccc_init.json';
+
 const main = async () => {
     clear();
     console.log(chalk.yellow(figlet.textSync('CCC Init', {horizontalLayout: 'full'})));
+
+    if(fileExists(configFile)) {
+
+    }
+
     const questions = [
         {
             name: 'createDescription',
@@ -35,7 +42,13 @@ const main = async () => {
             message: 'Enter the number of levels (int):',
             validate: (inp) => !isNaN(inp) && Number(inp) >= 1,
             filter: (inp) => Number(inp),
-        }
+        },
+        {
+            name: 'levelPrefix',
+            type: 'input',
+            message: 'Enter the prefix for the level folders:',
+            default: 'level',
+        },
     ];
     const answers = await inquirer.prompt(questions);
 
@@ -43,10 +56,10 @@ const main = async () => {
     mkDirIfNotExists(answers.inputDir);
     mkDirIfNotExists(answers.outputDir);
     for(let i = 1; i <= answers.numberOfLevels; i++) {
-        mkDirIfNotExists(path.join(answers.inputDir, 'level' + i))
-        mkDirIfNotExists(path.join(answers.outputDir, 'level' + i))
+        mkDirIfNotExists(path.join(answers.inputDir, answers.levelPrefix + i))
+        mkDirIfNotExists(path.join(answers.outputDir, answers.levelPrefix + i))
     }
-    fs.writeFileSync('ccc_init.json', JSON.stringify(answers, null, 2))
+    fs.writeFileSync(configFile, JSON.stringify(answers, null, 2))
 };
 
 main()

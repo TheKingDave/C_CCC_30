@@ -7,6 +7,10 @@ export const getBase = () => {
     return path.basename(process.cwd());
 };
 
+export const fileExists = (filePath) => {
+    return fs.existsSync(filePath)
+};
+
 export const dirExists = (dirPath) => {
     try {
         return fs.statSync(dirPath).isDirectory();
