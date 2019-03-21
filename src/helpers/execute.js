@@ -60,8 +60,9 @@ Examples: npm run execute 1 eq
 
         const {execute} = await import(path.join(getCWD(), 'build', ccc_config.mainFile));
 
+        let output;
         try {
-            const output = await execute(inputData);
+            output = await execute(inputData);
         } catch (e) {
             console.log(chalk.red(`Got error while executing file ${chalk.green(file)}:`));
             console.log(e);
@@ -69,7 +70,6 @@ Examples: npm run execute 1 eq
         }
 
         console.log("Executed for file: " + chalk.green(file));
-
         fs.writeFileSync(path.join(outputFolder, file + ccc_config.outputFileExtension), output,'utf8');
     }
 };
