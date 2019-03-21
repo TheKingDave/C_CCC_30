@@ -1,6 +1,7 @@
 # from https://github.com/github/gitignore/blob/master/Node.gitignore
 
 # non original
+build/
 .idea/
 # /non original
 
