@@ -31,10 +31,12 @@ Examples: npm run execute 1 eq
     const inputFolder = path.join(ccc_config.inputDir, ccc_config.levelFolderPrefix + levelNumber);
     const outputFolder = path.join(ccc_config.outputDir, ccc_config.levelFolderPrefix + levelNumber);
 
-    const files = [];
+    let files = [];
 
     if(params._[1] === 'all') {
-        // TODO: read all files
+        files = fs.readdirSync(inputFolder)
+            .filter(f => f.endsWith(ccc_config.inputFileExtension))
+            .map(f => f.slice(0, -ccc_config.inputFileExtension.length));
     } else {
         files.push(
             ccc_config.levelFilePrefix.replace(/\${n}/g, levelNumber) +
@@ -50,8 +52,6 @@ Examples: npm run execute 1 eq
         }
     }
 
-    console.log(files);
-
     for(let file of files) {
         const inputData = fs.readFileSync(path.join(inputFolder, file + ccc_config.inputFileExtension), 'utf8');
 
@@ -59,8 +59,6 @@ Examples: npm run execute 1 eq
         const output = execute(inputData);
         fs.writeFileSync(path.join(outputFolder, file + ccc_config.outputFileExtension), output,'utf8');
     }
-
-    //console.log(params);
 };
 
 main()
