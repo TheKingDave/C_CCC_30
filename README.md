@@ -6,11 +6,17 @@ It makes an abstraction layer between the files and the code you are programming
 worry about file reading/writing.
 
 ## Using this template
-First you need to run
+Clone this repository
+```bash
+git clone git@github.com:TheKingDave/CCC_js_template.git [your name e.g. CCC_30]
+```
+Then run
 ```bash
 npm run init
 ```
-and answer the questions. They should normally just be accepted as is.
+and answer the questions. They should normally just be accepted as is.  
+The only question that really matters is `numberOfLevels`. If you got it wrong you can manually edit
+the ccc_init.json in your root directory.
 
 #### Detailed description of parameters:
 * createDescription: If a directory named 'description' should be created. This is for the descriptions.pdf files.
@@ -30,6 +36,9 @@ and returns an string. The argument is the contents of the input file and the re
 contents of the output file.
 
 ## Execute you code with an specific input
+There are two commands `execute` and `execute:build`  
+The syntax for both of them is the same. The only difference is that `execute:build` will transpile/build
+the sources before executing you script. `execute` is designed to work with [`buildRunner.js`](#build-runner) 
 ```bash
 npm run execute [levelNr] [inputName]
 ```

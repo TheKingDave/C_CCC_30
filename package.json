@@ -10,7 +10,8 @@
     "start": "npm run startNoCompile",
     "startNoCompile": "node build/main.js",
     "init": "npm run build && node build/helpers/init.js",
-    "execute": "npm run build && node build/helpers/execute.js",
+    "execute": "node build/helpers/execute.js",
+    "execute:build": "npm run build && npm run execute",
     "runner": "npm run build && node build/helpers/buildRunner.js"
   },
   "repository": {
