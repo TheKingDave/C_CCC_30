@@ -10,6 +10,10 @@ export class FileRead {
         this.currentLine = 0;
     }
 
+    /**
+     * Gets the next line from inputStr and increases currentLine
+     * @returns {String} the next line
+     */
     getNextLine() {
         if(this.lines.length <= this.currentLine) {
             throw new Error("Reached end of input");
