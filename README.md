@@ -10,6 +10,10 @@ Clone this repository
 ```bash
 git clone git@github.com:TheKingDave/CCC_js_template.git [your name e.g. CCC_30]
 ```
+Install dependencies:
+```bash
+npm install
+```
 Then run
 ```bash
 npm run init
