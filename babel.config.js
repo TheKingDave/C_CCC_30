@@ -12,7 +12,7 @@ const presets = [
 ];
 
 const plugins = [
-    'babel-plugin-dynamic-import-nodeg',
+    'babel-plugin-dynamic-import-node',
 ];
 
 module.exports = {presets, plugins}
