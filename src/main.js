@@ -6,7 +6,12 @@ export const execute = (input) => {
 
     console.log(fr.readLine());
     fr.currentLine = 0;
-    console.log(fr.readLine(['mx', 'my', 'arg1', 'arg2']));
+    const {rows, columns} = fr.readLine(['rows', 'columns', 'threshold', 'v']);
+
+    console.log(fr.readList(rows, columns));
+
+    const {numRanges} = fr.readLine(['numRanges']);
+    console.log(fr.readList(numRanges, ['range', 'count']));
 
     return "testing";
 };
