@@ -1,0 +1,19 @@
+{
+  "name": "ccc_js_template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheKingDave/CCC_js_template.git"
+  },
+  "author": "David Langheiter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheKingDave/CCC_js_template/issues"
+  },
+  "homepage": "https://github.com/TheKingDave/CCC_js_template#readme"
+}
