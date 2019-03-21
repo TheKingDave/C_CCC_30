@@ -31,10 +31,22 @@ const main = async () => {
             default: 'input',
         },
         {
+            name: 'inputFileExtension',
+            type: 'input',
+            message: 'Enter input file extension',
+            default: '.in'
+        },
+        {
             name: 'outputDir',
             type: 'input',
             message: 'Enter output file directory:',
             default: 'output',
+        },
+        {
+            name: 'outputFileExtension',
+            type: 'input',
+            message: 'Enter output file extension',
+            default: '.out'
         },
         {
             name: 'numberOfLevels',
@@ -44,11 +56,23 @@ const main = async () => {
             filter: (inp) => Number(inp),
         },
         {
-            name: 'levelPrefix',
+            name: 'levelFolderPrefix',
             type: 'input',
             message: 'Enter the prefix for the level folders:',
             default: 'level',
         },
+        {
+            name: 'levelFilePrefix',
+            type: 'input',
+            message: 'Enter the prefix for the file (${n} for level number)',
+            default: 'level${n}_'
+        },
+        {
+            name: 'mainFile',
+            type: 'input',
+            message: 'Enter the name of the main js file',
+            default: 'main.js',
+        }
     ];
     const answers = await inquirer.prompt(questions);
 
@@ -56,8 +80,8 @@ const main = async () => {
     mkDirIfNotExists(answers.inputDir);
     mkDirIfNotExists(answers.outputDir);
     for(let i = 1; i <= answers.numberOfLevels; i++) {
-        mkDirIfNotExists(path.join(answers.inputDir, answers.levelPrefix + i))
-        mkDirIfNotExists(path.join(answers.outputDir, answers.levelPrefix + i))
+        mkDirIfNotExists(path.join(answers.inputDir, answers.levelFolderPrefix + i))
+        mkDirIfNotExists(path.join(answers.outputDir, answers.levelFolderPrefix + i))
     }
     fs.writeFileSync(configFile, JSON.stringify(answers, null, 2))
 };
