@@ -24,7 +24,12 @@ and answer the questions. They should normally just be accepted as is.
 * mainFile: The name of the `main` file which will be imported and the function `execute` will be executed with the
 input as first parameter. The return should be a string and will be saved in the output file.
 
-### Execute you code with an specific input
+## Your code
+Your code **needs** to export a function with the name `execute(input): String` which takes on argument
+and returns an string. The argument is the contents of the input file and the returned string is the
+contents of the output file.
+
+## Execute you code with an specific input
 ```bash
 npm run execute [levelNr] [inputName]
 ```
@@ -41,8 +46,9 @@ Start it with
 npm run runner
 ````
 
-### Helpers (fileRead.js)
-To import:
+## Helpers
+### fileRead.js
+To import (use that what you need depending on node version/babel):
 ```js
 import {FileRad} from './helpers/fileRead';
 const {FileRead} = require('./helpers/fileRead');
@@ -75,7 +81,32 @@ const ranges = fr.readList(numRanges, ['range', 'guardCount']);
 console.log(ranges); // [ { range: 2, guardCount: 10 }, { range: 7, guardCount: 9 } ]
 ```
 
-### Your code
-Your code **needs** to export a function with the name `execute(input): String` which takes on argument
-and returns an string. The argument is the contents of the input file and the returned string is the
-contents of the output file.
+## fileWrite.js
+To import (use that what you need depending on node version/babel):
+```js
+import {FileRad} from './helpers/fileWrite';
+const {FileRead} = require('./helpers/fileWrite');
+```  
+
+Example:
+```js
+// Initialize FileWrite
+const fw = new FileWrite('output:');
+
+// Writing an object to the output 
+fw.writeObject({threshold, velocity}, ['velocity', 'threshold']);
+
+const coordinates = [ {x: 0, y: 1}, {y: 5, x: 15} ];
+// Writing a number/string to the output
+fw.writeObject(coordinates.length);
+// Writing an list of object to the output
+fw.writeListOfObjects(coordinates, ['x', 'y']);
+```
+Output:
+```text
+output:
+18 3768
+2
+0 1
+15 5
+```

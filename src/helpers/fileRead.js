@@ -49,6 +49,7 @@ export class FileRead {
             return ret;
         }else if(!isNaN(names)) {
             if(input.length !== names) {
+                console.log(input);
                 throw new Error(`Input/Length mismatch. Expected ${names} items but got ${input.length}.`)
             }
         }
