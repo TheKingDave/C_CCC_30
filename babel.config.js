@@ -6,8 +6,13 @@ const presets = [
                 node: 'current'
             },
             useBuiltIns: "usage",
+            corejs: "core-js@3",
         }
     ]
-]
+];
 
-module.exports = {presets}
+const plugins = [
+    'babel-plugin-dynamic-import-nodeg',
+];
+
+module.exports = {presets, plugins}
