@@ -37,6 +37,9 @@ Examples: npm run execute 1 eq
         files = fs.readdirSync(inputFolder)
             .filter(f => f.endsWith(ccc_config.inputFileExtension))
             .map(f => f.slice(0, -ccc_config.inputFileExtension.length));
+        if(files.length === 0) {
+            console.log(chalk.red(`No input files found in folder ${inputFolder}`))
+        }
     } else {
         files.push(
             ccc_config.levelFilePrefix.replace(/\${n}/g, levelNumber) +
@@ -57,6 +60,9 @@ Examples: npm run execute 1 eq
 
         const {execute} = await import(path.join(getCWD(), 'build', ccc_config.mainFile));
         const output = execute(inputData);
+
+        console.log("Executed for file: " + chalk.green(file));
+
         fs.writeFileSync(path.join(outputFolder, file + ccc_config.outputFileExtension), output,'utf8');
     }
 };
