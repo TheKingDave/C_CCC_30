@@ -16,14 +16,7 @@ export const execute = async (input) => {
     const fr = new FileRead(input);
     const fw = new FileWrite();
 
-    const grid = [[0, 0, 1, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 0, 0, 0]];
 
-    const as = new aStar(grid);
-    console.log(await as.findPath(0, 0, 4, 0));
 
     return fw;
 };

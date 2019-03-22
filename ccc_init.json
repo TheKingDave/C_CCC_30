@@ -1,0 +1,11 @@
+{
+  "createDescription": true,
+  "inputDir": "input",
+  "inputFileExtension": ".in",
+  "outputDir": "output",
+  "outputFileExtension": ".out",
+  "numberOfLevels": 7,
+  "levelFolderPrefix": "level",
+  "levelFilePrefix": "level${n}_",
+  "mainFile": "main.js"
+}
