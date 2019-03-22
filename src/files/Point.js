@@ -10,6 +10,12 @@ export class Point {
         }
     }
 
+    getDistance(other) {
+        if(other instanceof Point) {
+            return Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2))
+        }
+    }
+
     moveDirection(direction) {
         this.x = this.x + direction.x;
         this.y = this.y + direction.y;
