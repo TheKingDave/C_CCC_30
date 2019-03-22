@@ -1,5 +1,7 @@
 import {FileRead} from "./helpers/fileRead";
 import {FileWrite} from "./helpers/fileWrite";
+import {aStar} from "./helpers/aStar";
+
 // This is main program
 
 class Color {
@@ -10,12 +12,18 @@ class Color {
     }
 }
 
-export const execute = (input) => {
+export const execute = async (input) => {
     const fr = new FileRead(input);
     const fw = new FileWrite();
 
-    const {tupels} = fr.readLine(['tupels']);
-    console.log(fr.readObjectGrid(['r', 'g', 'b'], 2, tupels, (v) => new Color(v)));
+    const grid = [[0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0]];
+
+    const as = new aStar(grid);
+    console.log(await as.findPath(0, 0, 4, 0));
 
     return fw;
 };
