@@ -1,10 +1,7 @@
 export class FileWrite {
 
-    constructor(startString) {
-        if(!startString) startString = '';
-
+    constructor() {
         this.string = '';
-        this.writeNextLine(startString);
     }
 
     getOutputString() {
