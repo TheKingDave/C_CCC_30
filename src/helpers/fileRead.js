@@ -75,7 +75,7 @@ export class FileRead {
                 throw new Error("All names MUST be unique.");
             }
             if (names.length * times !== input.length) {
-                throw new Error(`Input/Names length mismatch. Expected ${names.length} items but got ${input.length}.`);
+                throw new Error(`Input/Names length mismatch. Expected ${names.length * times} items but got ${input.length}.`);
             }
             const ret = [];
             let count = 0;

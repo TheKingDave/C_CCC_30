@@ -4,6 +4,7 @@ import {aStar} from "./helpers/aStar";
 import {Person} from "./files/Person";
 import {Command} from "./files/Command";
 import {Point} from "./files/Point";
+import {Alien} from "./files/Alien";
 
 // This is main program
 
@@ -22,19 +23,38 @@ class Main {
 
         const moveLine = this.fr.readLine();
         const cmds = [];
-        let lastPoint = new Point(p.position);
-        this.fw.writeNextLine(p.position);
         for (let i = 0; i < moveLine.length; i += 2) {
-            const cmd = new Command(moveLine[i], moveLine[i + 1]);
-            for(let a = 0; a < cmd.times; a++) {
-                p.runCmd(cmd.cmd);
-                p.position.clamp(width, height);
-                if(!p.position.equals(lastPoint)) {
-                    this.fw.writeNextLine(p.position);
-                    lastPoint = new Point(p.position);
-                }
-            }
+            cmds.push(new Command(moveLine[i], moveLine[i + 1]));
         }
+        const movement = this.extrapolateMovement(cmds);
+
+        const {speed} = this.fr.readLine(['speed']);
+
+        const {numAliens} = this.fr.readLine(['numAliens']);
+        const spawnTimes = this.fr.readList(numAliens, 1);
+
+        const {numQuery} = this.fr.readLine(['numQuery']);
+        const queries = this.fr.readList(numQuery, 2);
+
+
+        const aliens = [];
+        for(let i = 0; i < numAliens; i++) {
+            aliens.push(new Alien(startX, startY, movement, i, speed, Number(spawnTimes[i])));
+        }
+
+        for(let query of queries) {
+            const [tick, alien] = query;
+            const pos = aliens[alien].getPosAtTick(tick);
+            this.fw.writeNextLine(tick + " " + alien + " " + pos.toString());
+        }
+    }
+
+    extrapolateMovement(cmds) {
+        const ret = [];
+        for(let cmd of cmds) {
+            ret.push(...cmd.toCmdList());
+        }
+        return ret;
     }
 
 }
