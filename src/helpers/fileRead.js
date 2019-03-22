@@ -15,7 +15,7 @@ export class FileRead {
      * @returns {String} the next line
      */
     getNextLine() {
-        if(this.lines.length <= this.currentLine) {
+        if (this.lines.length <= this.currentLine) {
             throw new Error("Reached end of input");
         }
         return this.lines[this.currentLine++];
@@ -27,13 +27,13 @@ export class FileRead {
      * @param format Format function for every element. If not present uses default formatter (converts numbers to numbers)
      */
     readLine(names, format) {
-        if(!isFunction(format)) {
+        if (!isFunction(format)) {
             format = defaultFormatter;
         }
 
         const input = this.getNextLine().split(" ").map(i => i.trim()).filter(i => i !== '');
 
-        if(Array.isArray(names)) {
+        if (Array.isArray(names)) {
             let unique = [...new Set(names)];
             if (names.length !== unique.length) {
                 throw new Error("All names MUST be unique.");
@@ -47,13 +47,60 @@ export class FileRead {
                 ret[name] = format(input[count++]);
             }
             return ret;
-        }else if(!isNaN(names)) {
-            if(input.length !== names) {
+        } else if (!isNaN(names)) {
+            if (input.length !== names) {
                 console.log(input);
                 throw new Error(`Input/Length mismatch. Expected ${names} items but got ${input.length}.`)
             }
         }
         return input.map(format);
+    }
+
+    /**
+     * Reads a single line and converts a list of objects (grouped values) to and object array
+     * @param names Names in the object
+     * @param times How many times to expect/read an object
+     * @param format Formatter (v) => v, if not given default formatter will be used
+     */
+    readObjectList(names, times, format) {
+        if (!isFunction(format)) {
+            format = defaultFormatter;
+        }
+
+        const input = this.getNextLine().split(" ").map(i => i.trim()).filter(i => i !== '');
+
+        if (Array.isArray(names) && !isNaN(times)) {
+            let unique = [...new Set(names)];
+            if (names.length !== unique.length) {
+                throw new Error("All names MUST be unique.");
+            }
+            if (names.length * times !== input.length) {
+                throw new Error(`Input/Names length mismatch. Expected ${names.length} items but got ${input.length}.`);
+            }
+            const ret = [];
+            let count = 0;
+            for(let i = 0; i < times; i++) {
+                const object = {};
+                for (let name of names) {
+                    object[name] = input[count++];
+                }
+                ret.push(format(object));
+            }
+            return ret;
+        } else {
+            throw new Error('names must be an array and times must be a number');
+        }
+    }
+
+    readObjectGrid(names, times, rows, format) {
+        if(isNaN(rows)) {
+            throw new Error('rows must be a number');
+        }
+        const ret = [];
+        for(let i = 0; i < rows; i++) {
+            ret.push(this.readObjectList(names, times, format));
+        }
+        return ret;
     }
 
     /**
@@ -65,7 +112,7 @@ export class FileRead {
     readList(rows, columns, format) {
         const ret = [];
 
-        for(let i = 0; i < rows; i++) {
+        for (let i = 0; i < rows; i++) {
             ret.push(this.readLine(columns, format));
         }
 
